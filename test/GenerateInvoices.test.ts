@@ -1,8 +1,36 @@
+import ContractRepository from "../src/ContractRepository"
 import GenerateInvoices, { Input } from "../src/GenerateInvoices"
 
+let generateInvoices: GenerateInvoices
+
+
+beforeEach(() => {
+  const contractRepository: ContractRepository = {
+    async list(): Promise<any> {
+      return [
+        { 
+          idContract: "",
+          description: "",
+          periods: 12,
+          amount: "6000",
+          date: new Date('2022-01-01T10:00:00'),
+          payments: [
+            { 
+              idContract: "",
+              idPayment: "",
+              amount: 6000,
+              date: new Date('2022-01-05T10:00:00')
+            }
+          ],
+        }
+      ]
+    }
+  }
+  generateInvoices = new GenerateInvoices(contractRepository)
+})
 
 test('Deve gerar as notas fiscais por regime de caixa', async () => {
-  const generateInvoices = new GenerateInvoices()
+ 
   const input: Input = {
     month: 1,
     year: 2022,
@@ -18,7 +46,6 @@ test('Deve gerar as notas fiscais por regime de caixa', async () => {
 
 
 test('Deve gerar as notas fiscais por regime de competência do mês 01', async () => {
-  const generateInvoices = new GenerateInvoices()
   const input:Input = {
     month: 1,
     year: 2022,
@@ -32,7 +59,6 @@ test('Deve gerar as notas fiscais por regime de competência do mês 01', async 
 })
 
 test('Deve gerar as notas fiscais por regime de competência do mês 2', async () => {
-  const generateInvoices = new GenerateInvoices()
   const input:Input = {
     month: 2,
     year: 2022,

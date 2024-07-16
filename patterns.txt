@@ -5,3 +5,7 @@ Objeto que só tem propriedades, sendo utilizado para transporte entre camadas d
 Repository
 
 Realizar a persistência de aggregates(clusters de objetos de domínio como entities e value objects), separando essa responsabilidade da aplicação
+
+DIP - Dependency Inversion Principle
+
+Componentes de alto nível não devem depender de componentes de baixo nível, eles devem depender de abstrações.
