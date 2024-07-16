@@ -1,5 +1,5 @@
 import moment from 'moment'
-import pgp from 'pg-promise'
+import ContractDatabaseRepository from './ContractDatabaseRepository'
 
 export type Input = {
   month: number
@@ -13,15 +13,13 @@ export type Output = {
 }
 
 export default class GenerateInvoices {
-
     async execute(input: Input): Promise<Output[]> {
-      const connection = pgp()("postgres://postgres:postgres@localhost:5432/branas")
-      const contracts = await connection.query("select * from branas.contract", [])
       const output: Output[] = []
+      const contractRepository = new ContractDatabaseRepository()
+      const contracts = await contractRepository.list()
       for(const contract of contracts) {
         if(input.type === "cash") {
-          const payments = await connection.query("select * from branas.payment where id_contract = $1", [contract.id_contract])
-          for(const payment of payments) {
+          for(const payment of contract.payments) {
               if(payment.date.getMonth() + 1 !== input.month || payment.date.getFullYear() !== input.year) continue
               output.push({ date: moment(payment.date).format("YYYY-MM-DD"), amount: parseFloat(payment.amount)})
           }
@@ -36,7 +34,7 @@ export default class GenerateInvoices {
             }
         }
       }
-      await connection.$pool.end()
+
       return output
   }
 }
