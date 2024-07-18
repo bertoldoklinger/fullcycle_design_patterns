@@ -9,3 +9,7 @@ Realizar a persistência de aggregates(clusters de objetos de domínio como enti
 DIP - Dependency Inversion Principle
 
 Componentes de alto nível não devem depender de componentes de baixo nível, eles devem depender de abstrações.
+
+Adapter
+
+Converte a interface de uma classe em outra esperada pelo cliente, permitindo que classes incompatíveis trabalhem juntas
