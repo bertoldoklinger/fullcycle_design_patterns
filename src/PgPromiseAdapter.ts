@@ -12,6 +12,6 @@ export default class PgPromiseAdapter implements DatabaseConnection {
     return await this.connection.query(statement, params)
   }
   async close(): Promise<void> {
-    return await this.connection.$pool.end()
+    return this.connection.$pool.end()
   }
 }

@@ -1,4 +1,6 @@
+import Contract from "./Contract";
+
 export default interface ContractRepository {
-  list (): Promise<any>
+  list (): Promise<Contract[]>
     
 }

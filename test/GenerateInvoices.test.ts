@@ -35,9 +35,9 @@ beforeEach(() => {
   contractRepository = new ContractDatabaseRepository(connection)
   generateInvoices = new GenerateInvoices(contractRepository)
 })
-
+//teste de integração
 test('Deve gerar as notas fiscais por regime de caixa', async () => {
- 
+
   const input: Input = {
     month: 1,
     year: 2022,
@@ -52,7 +52,7 @@ test('Deve gerar as notas fiscais por regime de caixa', async () => {
 })
 
 
-test('Deve gerar as notas fiscais por regime de competência do mês 01', async () => {
+test('Deve gerar as notas fiscais por regime de competência do mês 1', async () => {
   const input:Input = {
     month: 1,
     year: 2022,
@@ -78,6 +78,6 @@ test('Deve gerar as notas fiscais por regime de competência do mês 2', async (
   expect(output.at(0)?.amount).toBe(500)
 })
 
-afterEach(async() => {
-  await connection.close()
+afterEach(async () => {
+  connection.close()
 })
