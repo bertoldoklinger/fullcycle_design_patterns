@@ -13,3 +13,11 @@ Componentes de alto nível não devem depender de componentes de baixo nível, e
 Adapter
 
 Converte a interface de uma classe em outra esperada pelo cliente, permitindo que classes incompatíveis trabalhem juntas
+
+Strategy
+
+Criar comportamento intercambiável
+
+Dynamic Factory
+
+Criar uma instância com base em uma string
