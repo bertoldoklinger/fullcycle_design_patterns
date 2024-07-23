@@ -20,14 +20,13 @@ export default class GenerateInvoices {
 
       const contracts = await this.contractRepository.list()
       for(const contract of contracts) {
-        const invoices = contract.generateInvoices(input.month,input.year,input.type)
+        const invoices = contract.generateInvoices(input.month,input.year, input.type)
             for(const invoice of invoices) {
               output.push({
                 date: moment(invoice.date).format("YYYY-MM-DD"), amount: invoice.amount
               })
             }
       }
-
       return output
   }
 }
