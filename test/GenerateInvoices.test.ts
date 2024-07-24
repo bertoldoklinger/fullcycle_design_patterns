@@ -78,6 +78,19 @@ test('Deve gerar as notas fiscais por regime de competência do mês 2', async (
   expect(output.at(0)?.amount).toBe(500)
 })
 
+test('Deve gerar as notas fiscais por regime de competência por csv', async () => {
+  const input:Input = {
+    month: 1,
+    year: 2022,
+    type: "accrual",
+    format: "csv"
+  }
+
+  const output = await generateInvoices.execute(input)
+
+  expect(output).toBe("2022-01-01;500")
+})
+
 afterEach(async () => {
   connection.close()
 })

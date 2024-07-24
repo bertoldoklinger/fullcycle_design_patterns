@@ -6,8 +6,6 @@ import InvoiceGenerationStrategy from "./InvoiceGenerationStrategy";
 export default class AccrualBasisStrategy implements InvoiceGenerationStrategy {
   generate(contract: Contract, month: number, year: number): Invoice[] {
     const invoices: Invoice[] = []
-
-
         let period = 0
         while(period <= contract.periods) {
           const date = moment(contract.date).add(period++, "months").toDate()
@@ -18,4 +16,4 @@ export default class AccrualBasisStrategy implements InvoiceGenerationStrategy {
     }
     return invoices
   }
-  }
+}
