@@ -21,3 +21,7 @@ Criar comportamento intercambiável
 Dynamic Factory
 
 Criar uma instância com base em uma string
+
+Presenter
+
+Formatar e adequar um determinadoi conteúdo ás necessidades do cliente

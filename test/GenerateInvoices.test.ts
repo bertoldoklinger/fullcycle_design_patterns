@@ -1,5 +1,6 @@
 import ContractDatabaseRepository from "../src/ContractDatabaseRepository"
 import ContractRepository from "../src/ContractRepository"
+import CsvPresenter from "../src/CsvPresenter"
 import DatabaseConnection from "../src/DatabaseConnection"
 import GenerateInvoices, { Input } from "../src/GenerateInvoices"
 import PgPromiseAdapter from "../src/PgPromiseAdapter"
@@ -46,13 +47,13 @@ test('Deve gerar as notas fiscais por regime de caixa', async () => {
 
   const output = await generateInvoices.execute(input)
 
-  expect(output.at(0)?.date).toBe("2022-01-05")
+  expect(output.at(0)?.date).toEqual(new Date("2022-01-05T13:00:00.000Z"))
   expect(output.at(0)?.amount).toBe(6000)
   
 })
 
 
-test('Deve gerar as notas fiscais por regime de competência do mês 1', async () => {
+test('Deve gerar as notas fiscais por regime de competência', async () => {
   const input:Input = {
     month: 1,
     year: 2022,
@@ -61,7 +62,7 @@ test('Deve gerar as notas fiscais por regime de competência do mês 1', async (
 
   const output = await generateInvoices.execute(input)
 
-  expect(output.at(0)?.date).toBe("2022-01-01")
+  expect(output.at(0)?.date).toEqual(new Date("2022-01-01T13:00:00.000Z"))
   expect(output.at(0)?.amount).toBe(500)
 })
 
@@ -74,7 +75,7 @@ test('Deve gerar as notas fiscais por regime de competência do mês 2', async (
 
   const output = await generateInvoices.execute(input)
 
-  expect(output.at(0)?.date).toBe("2022-02-01")
+  expect(output.at(0)?.date).toEqual(new Date("2022-02-01T13:00:00.000Z"))
   expect(output.at(0)?.amount).toBe(500)
 })
 
@@ -85,7 +86,8 @@ test('Deve gerar as notas fiscais por regime de competência por csv', async () 
     type: "accrual",
     format: "csv"
   }
-
+  const presenter = new CsvPresenter()
+  const generateInvoices = new GenerateInvoices(contractRepository, presenter)
   const output = await generateInvoices.execute(input)
 
   expect(output).toBe("2022-01-01;500")
